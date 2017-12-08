@@ -34,7 +34,7 @@ with open('eight.txt', 'r') as f:
                 else:
                     var1_val += val1
         if inst2 == '<=':
-             if var2_val <= val2:
+            if var2_val <= val2:
                 if inst1 == 'dec':
                     var1_val -= val1
                 else:
@@ -70,4 +70,3 @@ with open('eight.txt', 'r') as f:
     print(val)
     print(max(val))
     print(max_val)
-    
