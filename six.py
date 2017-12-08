@@ -25,6 +25,7 @@ with open('six.txt', 'r') as f:
         # check if list matches any others
         for i in range(len(line_hist)):
             if line_hist[i] == line:
+                print(line)
                 print('match index = {}'.format(i))
                 print('total iters = {}'.format(len(line_hist)))
                 print('inf loop size = {}'.format(len(line_hist) - i))
