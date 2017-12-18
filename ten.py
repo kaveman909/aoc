@@ -14,7 +14,7 @@ def reverse(lst, start, end):
     return lst
 
 
-def knot_hash(length_seq):
+def knot_hash(length_seq, print_out=False):
     length_seq = [ord(c) for c in length_seq]
     length_seq.extend([17, 31, 73, 47, 23])
     nums = list(range(256))
@@ -39,7 +39,8 @@ def knot_hash(length_seq):
     hex_hash = ""
     for i in dense_hash:
         hex_hash += '{0:02x}'.format(i)
-    print(hex_hash)
-    return hex_hash
+    if print_out is True:
+        print(hex_hash)
+    return dense_hash
 
-knot_hash(length_sequence)
+knot_hash(length_sequence, print_out=True)
