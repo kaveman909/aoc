@@ -53,8 +53,8 @@ def program_thread(id):
                 print('Part 1: {}'.format(snd))
                 first_time = False
             try:
-                # blocks until available for 2 seconds
-                rcv = q[id].get(timeout=2)
+                # blocks until available for 100 ms
+                rcv = q[id].get(timeout=0.1)
                 registers[params[0]] = rcv
             except Empty:
                 if id == 1:
