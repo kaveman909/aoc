@@ -1,5 +1,6 @@
 from threading import Thread
 from queue import Queue
+from queue import Empty
 
 with open('eighteen.txt') as f:
     lines = f.readlines()
@@ -8,6 +9,7 @@ program = [line.rstrip().split(' ') for line in lines]
 
 def program_thread(id):
     global q
+    first_time = True
     pc = 0
     snd = 0
     rcv = 0
@@ -25,8 +27,6 @@ def program_thread(id):
             snd = registers[params[0]]
             q[1 - id].put(snd)
             snd_count += 1
-            if id == 1:
-                print('id 1 send count: {}'.format(snd_count))
         elif inst == 'set':
             if type(params[1]) is int:
                 registers[params[0]] = params[1]
@@ -49,8 +49,17 @@ def program_thread(id):
             else:
                 registers[params[0]] %= registers[params[1]]
         elif inst == 'rcv':
-                rcv = q[id].get()   # blocks until available
+            if first_time and id == 0:
+                print('Part 1: {}'.format(snd))
+                first_time = False
+            try:
+                # blocks until available for 2 seconds
+                rcv = q[id].get(timeout=2)
                 registers[params[0]] = rcv
+            except Empty:
+                if id == 1:
+                    print('Part 2: {}'.format(snd_count))
+                break
         elif inst == 'jgz':
             jump = False
             if type(params[0]) is int:
